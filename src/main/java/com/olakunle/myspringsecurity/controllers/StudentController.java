@@ -2,16 +2,13 @@ package com.olakunle.myspringsecurity.controllers;
 
 
 import com.olakunle.myspringsecurity.entities.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("security")
+@RequestMapping("student/api")
 public class StudentController {
 
     private static final List<Student> STUDENT  = Arrays.asList(
@@ -28,5 +25,6 @@ public class StudentController {
                     new IllegalStateException("Student with " + studentId + " not available")
                 );
     }
+
 
 }
