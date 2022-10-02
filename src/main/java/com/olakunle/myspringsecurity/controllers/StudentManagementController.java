@@ -1,6 +1,7 @@
 package com.olakunle.myspringsecurity.controllers;
 
 import com.olakunle.myspringsecurity.entities.Student;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +18,28 @@ public class StudentManagementController {
     );
 
     @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
     public List<Student> getAllStudent(){
         return STUDENT;
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('student:write')")
+
     public void registerStudent(@RequestBody Student student){
         System.out.println("Registering Student" + student) ;
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('student:write')")
+
     public void deleteStudent(@PathVariable("id") Integer studentId){
         System.out.println("Deleting Student" + studentId);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('student:write')")
+
     public void updateStudent(@PathVariable("id") Integer studentId, @RequestBody Student student){
         System.out.println("Updating Student" + studentId + " with data " + student);
     }
