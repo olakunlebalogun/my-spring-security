@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("student/api")
@@ -19,12 +20,12 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public Student getSingleStudent(@PathVariable("id") Integer studentId){
-        return STUDENT.stream().filter(student -> student.getStudentId() == studentId)
+        return STUDENT.stream().filter(student -> Objects.equals(studentId, student.getStudentId()))
+//        return STUDENT.stream().filter(student -> student.getStudentId() == studentId)
                 .findFirst()
                 .orElseThrow( () ->
-                    new IllegalStateException("Student with " + studentId + " not available")
+                    new IllegalStateException(String.format("Student with %s not available", studentId))
                 );
     }
-
 
 }
